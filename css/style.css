@@ -178,7 +178,8 @@ header nav .order:hover {
   position: relative;
   padding-top: 100px;
 }
-#Categories .cat-item {
+
+.cat-item, .meal {
   width: 250px;
   padding: 0px 0px 20px;
   border-radius: 10px;
@@ -190,15 +191,15 @@ header nav .order:hover {
   border: 2px solid var(--btn);
   background-color: var(--title);
 }
-#Categories .cat-item img {
+.cat-item img, .meal img {
   border-radius: 10px 10px 0px 0px;
   width: 100%;
   height: 250px;
 }
-#Categories .cat-item h4 {
+.cat-item h4, .meal h4 {
   color: var(--bg);
 }
-#Categories .cat-item button {
+.cat-item button, .meal button {
   cursor: pointer;
   pointer-events: visible;
   padding: 10px 15px;
@@ -230,38 +231,16 @@ header nav .order:hover {
   align-items: center;
   background-color: #ffffff;
   position: relative;
-  padding-top: 150px;
+  padding-top: 250px;
+  padding-bottom: 50px;
 }
-#searchForMeal nav {
-  width: 100%;
-  width: 100%;
-  position: relative;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  border: 2px solid var(--btn);
-  padding: 10px;
-}
-#searchForMeal nav input {
-  height: 35px;
-  padding-left: 20px;
-  font-size: 15px;
-  border: 1px solid var(--title);
-  outline: none;
-}
-#searchForMeal nav i {
-  position: absolute;
-  left: 0px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 20px;
-  cursor: pointer;
-}
-#searchForMeal nav .listSelect {
+#searchForMeal .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  gap: 40px;
 }
-#searchForMeal nav .listSelect input {
-  width: 100%;
+#searchForMeal .container select {
+  height: 30px;
+  outline: none;
+  border: 1px solid var(--title);
 }/*# sourceMappingURL=style.css.map */

@@ -78,12 +78,19 @@ $(".owl-carousel").owlCarousel({
   },
 });
 let owlItem = document.querySelectorAll(".cat-item");
+let catList = document.getElementById("catList");
+let mealList = document.getElementById("mealList");
+let mealOption = document.querySelectorAll("#mealList option");
 let fetchCat = () => {
     fetch("https://www.themealdb.com/api/json/v1/1/categories.php").then(data => data.json()).then(res => {
         let cat = res.categories;
         for (let i = 0; i < cat.length; i++){
             owlItem[i].children[0].src = cat[i].strCategoryThumb;
             owlItem[i].children[1].innerHTML = cat[i].strCategory;
+            let option = document.createElement("option");
+            option.innerHTML = cat[i].strCategory;
+            option.value = cat[i].strCategory;
+            catList.appendChild(option)
             owlItem[i].children[2].addEventListener("click", () => {
                 console.log(pop);
                 togglePop()
@@ -96,3 +103,51 @@ let fetchCat = () => {
     });
 }
 fetchCat();
+catList.onchange= () => {
+    fetch(
+      `https://www.themealdb.com/api/json/v1/1/filter.php?c=${catList.value}`
+    )
+      .then((data) => data.json())
+        .then((res) => {
+            console.log(res.meals);
+            let resLength = res.meals.length;
+            for (let j = 0; j < mealList.children.length; j++) {
+                mealList.children[j].setAttribute("style","display:none")
+            }
+            for (let i = 0; i < resLength; i++){
+                let option = document.createElement("option");
+                option.innerHTML = res.meals[i].strMeal;
+                option.value = res.meals[i].strMeal;
+                mealList.appendChild(option)  
+            }
+            mealList.value=mealList.children[0]
+        });
+}
+let mealSec = document.querySelector(".mealSec");
+mealList.onchange = () => {
+     fetch(
+       `https://www.themealdb.com/api/json/v1/1/search.php?s=${mealList.value}`
+     ).then((data) => data.json()).then(res => {
+         console.log(res.meals);
+         let result = res.meals;
+         for (let j = 0; j < mealSec.children.length; j++){
+             mealSec.children[j].setAttribute("style","display:none")
+         }
+         for (let i = 0; i < result.length; i++){
+             let meal = document.createElement("div");
+             meal.classList.add("meal");
+             let img = document.createElement("img");
+             img.classList.add("img-fluid");
+             img.alt = "meal";
+             let h4 = document.createElement("h4");
+             let btn = document.createElement("button");
+             btn.innerHTML = "Show Details";
+             img.src = result[0].strMealThumb;
+             h4.innerHTML = result[0].strMeal;
+             meal.appendChild(img);
+             meal.appendChild(h4);
+             meal.appendChild(btn);
+             mealSec.appendChild(meal)
+         }
+     });
+}
